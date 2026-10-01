@@ -1,0 +1,11 @@
+Outcome_Target,Delta_Variable,N_Valid,Median_IQR_No (Days),Median_IQR_Yes (Days),Spearman_rho,p_value_Spearman,p_value_MannWhitney
+Necrose,Delta_SF_to_Diagnostic_days,93,2.0 [0.0-4.0],2.0 [1.0-5.0],0.102,0.331,0.3305
+Necrose,Delta_SF_to_PEC_days,93,2.0 [0.0-4.2],2.0 [1.0-5.0],0.076,0.4687,0.4684
+Necrose,Delta_SF_to_CT1_days,88,2.0 [0.0-4.0],3.0 [1.0-7.0],0.205,0.0557,0.0568
+Necrose,Delta_SF_to_Bio_days,86,3.0 [1.0-7.0],4.0 [3.0-11.2],0.202,0.0626,0.0637
+Necrose,Delta_SF_to_BJN_days,92,4.0 [1.5-7.0],3.0 [2.0-7.0],0.028,0.7927,0.7945
+Necrose_peritonitis,Delta_SF_to_Diagnostic_days,25,4.0 [0.0-7.0],2.0 [1.0-3.5],-0.029,0.8896,0.9088
+Necrose_peritonitis,Delta_SF_to_PEC_days,25,4.0 [0.0-7.0],2.0 [1.0-3.5],-0.006,0.9779,1.0
+Necrose_peritonitis,Delta_SF_to_CT1_days,23,5.5 [2.8-136.8],2.0 [1.0-5.5],-0.377,0.0758,0.0823
+Necrose_peritonitis,Delta_SF_to_Bio_days,20,7.5 [4.0-423.5],4.0 [3.0-6.8],-0.248,0.2924,0.2993
+Necrose_peritonitis,Delta_SF_to_BJN_days,25,7.0 [4.0-34.0],2.0 [2.0-3.2],-0.459,0.0209,0.0263

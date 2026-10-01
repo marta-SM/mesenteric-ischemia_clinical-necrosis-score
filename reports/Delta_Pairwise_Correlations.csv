@@ -1,0 +1,11 @@
+Variable_1,Variable_2,N_Obs,Spearman_rho,p_value
+Delta_SF_to_Diagnostic_days,Delta_SF_to_PEC_days,93,0.979,0.0
+Delta_SF_to_Diagnostic_days,Delta_SF_to_CT1_days,88,0.825,0.0
+Delta_SF_to_Diagnostic_days,Delta_SF_to_Bio_days,86,0.725,0.0
+Delta_SF_to_Diagnostic_days,Delta_SF_to_BJN_days,92,0.695,0.0
+Delta_SF_to_PEC_days,Delta_SF_to_CT1_days,88,0.827,0.0
+Delta_SF_to_PEC_days,Delta_SF_to_Bio_days,86,0.712,0.0
+Delta_SF_to_PEC_days,Delta_SF_to_BJN_days,92,0.673,0.0
+Delta_SF_to_CT1_days,Delta_SF_to_Bio_days,82,0.789,0.0
+Delta_SF_to_CT1_days,Delta_SF_to_BJN_days,87,0.734,0.0
+Delta_SF_to_Bio_days,Delta_SF_to_BJN_days,86,0.824,0.0

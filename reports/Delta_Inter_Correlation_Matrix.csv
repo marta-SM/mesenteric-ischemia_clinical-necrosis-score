@@ -1,0 +1,6 @@
+,Delta_SF_to_Diagnostic_days,Delta_SF_to_PEC_days,Delta_SF_to_CT1_days,Delta_SF_to_Bio_days,Delta_SF_to_BJN_days
+Delta_SF_to_Diagnostic_days,1.0,0.979,0.825,0.725,0.695
+Delta_SF_to_PEC_days,0.979,1.0,0.827,0.712,0.673
+Delta_SF_to_CT1_days,0.825,0.827,1.0,0.789,0.734
+Delta_SF_to_Bio_days,0.725,0.712,0.789,1.0,0.824
+Delta_SF_to_BJN_days,0.695,0.673,0.734,0.824,1.0
