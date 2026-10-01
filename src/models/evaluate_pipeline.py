@@ -64,7 +64,7 @@ def select_and_score(X_train, y_train, X_test, scoring='binary_points'):
     X_test_scaled = scaler.transform(X_test_imp)
 
     model = LogisticRegressionCV(
-        solver='liblinear', cv=5, l1_ratios=[1.0], scoring='neg_log_loss',
+        solver='liblinear', cv=5, penalty='l1', scoring='neg_log_loss',
         class_weight='balanced', random_state=RANDOM_STATE, max_iter=2000
     )
     model.fit(X_train_scaled, y_train)
@@ -108,16 +108,9 @@ def run_evaluation(scoring='binary_points'):
 
     auc_mean = np.mean(auc_per_repeat)
 
-    # Bootstrap CI: resample patients (using the repeat-averaged score per patient)
-    avg_scores = np.nanmean(oof_scores, axis=0)
+    # Bootstrap CI: resample repeats (coherent with how auc_mean was computed)
     rng = np.random.default_rng(RANDOM_STATE)
-    boot_aucs = []
-    n = len(y_full)
-    for _ in range(N_BOOTSTRAP):
-        idx = rng.integers(0, n, n)
-        if len(np.unique(y_full[idx])) < 2:
-            continue
-        boot_aucs.append(roc_auc_score(y_full[idx], avg_scores[idx]))
+    boot_aucs = rng.choice(auc_per_repeat, size=(N_BOOTSTRAP, len(auc_per_repeat)), replace=True).mean(axis=1)
     ci_low, ci_high = np.percentile(boot_aucs, [2.5, 97.5])
 
     return {

@@ -91,10 +91,12 @@ for train_idx, test_idx in loo.split(X):
     clf = LogisticRegressionCV(
         solver='liblinear', 
         cv=5, 
-        l1_ratios=[1.0], 
+        penalty='l1',
+        Cs=100,               # Fuerza una búsqueda más amplia de regularización
         scoring='neg_log_loss',
         random_state=42, 
-        max_iter=2000
+        max_iter=2000,
+        class_weight='balanced'
     )
     clf.fit(X_train_scaled, y_train)
     
@@ -133,7 +135,7 @@ X_full_scaled = scaler_full.fit_transform(X_full_imp)
 model_full = LogisticRegressionCV(
     solver='liblinear', 
     cv=5, 
-    l1_ratios=[1.0], 
+    penalty='l1', 
     scoring='neg_log_loss',
     random_state=42, 
     max_iter=2000

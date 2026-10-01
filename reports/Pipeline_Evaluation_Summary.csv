@@ -1,0 +1,3 @@
+scoring_scheme,auc_mean_across_repeats,auc_ci95_low,auc_ci95_high,median_n_vars_selected,min_n_vars_selected,max_n_vars_selected
+binary_points,0.792,0.777,0.809,26,20,38
+logistic_probability,0.864,0.848,0.877,26,20,38
