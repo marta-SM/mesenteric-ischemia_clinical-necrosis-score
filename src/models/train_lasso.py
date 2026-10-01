@@ -91,7 +91,8 @@ for train_idx, test_idx in loo.split(X):
     clf = LogisticRegressionCV(
         solver='liblinear', 
         cv=5, 
-        l1_ratios=[1.0], 
+        penalty='l1', 
+        Cs=100,
         scoring='neg_log_loss',
         random_state=42, 
         max_iter=2000
