@@ -6,9 +6,9 @@ Python reproduction and extension of the preliminary methodology developed by Pa
 
 ## Status
 
-<b>Stabilized pipeline & honest evaluation completed</b> — preprocessing, univariate analysis, variable selection (Lasso L1 with strict liblinear solver), and cross-validated evaluation pipeline are fully operational. 
+<b>Stabilized pipeline & honest evaluation completed</b> — preprocessing, univariate analysis, variable selection (Lasso L1 with strict liblinear solver), and cross-validated evaluation pipeline are fully operational with strict top-N restriction.
 
-<b>Modeling Rationale:</b> We intentionally selected regularized logistic regression over black-box machine learning algorithms (such as random forests or gradient boosting). In a high-stakes clinical setting like acute mesenteric ischemia, any marginal performance gain from complex models does not compensate for the complete loss of interpretability and transparency required at bedside decision-making.
+**Modeling Rationale:** We intentionally selected regularized logistic regression over black-box machine learning algorithms (such as random forests or gradient boosting). In a high-stakes clinical setting like acute mesenteric ischemia, any marginal performance gain from complex models does not compensate for the complete loss of interpretability and transparency required at bedside decision-making.
 
 ## Setup
 
@@ -80,19 +80,19 @@ python src/models/generate_patient_scores.py -n_var 4
 - ⚠️ Same leakage caveat as step 5 — not a reliable performance estimate, for inspection only.
 
 ### 7. Honest pipeline evaluation — `src/models/evaluate_pipeline.py`
-The methodologically correct evaluation. Variable selection (Lasso) is repeated <i>inside</i> each cross-validation fold rather than once on the full dataset, so no information from the test patients ever influences which variables get selected. Uses Repeated Stratified K-Fold (5 folds × 20 repeats) with class-balanced logistic regression (`class_weight='balanced'`) and bootstrap 95% CI on AUC.
+The methodologically correct evaluation. Variable selection (Lasso) is repeated <i>inside</i> each cross-validation fold rather than once on the full dataset, so no information from the test patients ever influences which variables get selected. Uses Repeated Stratified K-Fold (5 folds × 20 repeats) with class-balanced logistic regression (`class_weight='balanced'`) and bootstrap 95% CI on AUC, restricted to the top-5 variables per fold.
 
 <b>Evaluation Results Summary:</b>
-- <b>Binary points scheme:</b> AUROC = 0.792 (95% CI: 0.777 - 0.809), median selected variables = 26 (range: 20 - 38).
-- <b>Logistic probability scheme:</b> AUROC = 0.864 (95% CI: 0.848 - 0.877), median selected variables = 26 (range: 20 - 38).
+- <b>Binary points scheme:</b> AUROC = 0.830 (95% CI: 0.813–0.847), median selected variables = 5 (range: 5–5)
+- <b>Logistic probability scheme:</b> AUROC = 0.864 (95% CI: 0.848–0.877), median selected variables = 5 (range: 5–5)
 
 ```bash
 python src/models/evaluate_pipeline.py
 ```
 - <b>Input:</b> `data/processed/Matrice_Complete_IMA_Clean.csv`
 - <b>Output:</b> `reports/Pipeline_Evaluation_Summary.csv`
-- `median/min/max_n_vars_selected` shows how stable Lasso's variable count is across folds.
-- <b>This is the script to cite for actual model performance</b> — not steps 5 or 6.
+- `median/min/max_n_vars_selected` shows how stable Lasso's full (unrestricted) variable count is across folds — useful diagnostic, not the deployed score's size.
+- **Once fixed, this is the script to cite for actual model performance** — not steps 5 or 6.
 
 ## Known limitations / open questions
 
