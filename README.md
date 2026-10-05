@@ -103,7 +103,7 @@ python src/models/evaluate_pipeline.py
 
 ## Data
 
-Real patient data is never committed to this repository. Development uses synthetic/placeholder data on Codespaces; real data processing happens locally.
+Development uses synthetic/placeholder data on Codespaces; real data processing happens locally.
 
 ## Related repositories
 
