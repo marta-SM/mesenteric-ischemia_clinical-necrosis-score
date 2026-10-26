@@ -46,8 +46,9 @@ def binary_points_score(X_fold, selected_idx, X_eval):
     """Current scheme: 1 point per selected feature with value > 0."""
     return (X_eval[:, selected_idx] > 0).sum(axis=1)
 
+TOP_N_VAR = 5  # keep in sync with the n_var you intend to deploy
 
-def select_and_score(X_train, y_train, X_test, scoring='binary_points'):
+def select_and_score(X_train, y_train, X_test, scoring='binary_points', top_n=TOP_N_VAR):
     # Fit preprocessing on TRAIN only
     imputer = SimpleImputer(strategy='median')
     X_train_imp = imputer.fit_transform(X_train)
@@ -69,7 +70,14 @@ def select_and_score(X_train, y_train, X_test, scoring='binary_points'):
     )
     model.fit(X_train_scaled, y_train)
     coefs = model.coef_[0]
-    selected_idx = np.where(coefs != 0)[0]
+    nonzero_idx = np.where(coefs != 0)[0]
+
+    if len(nonzero_idx) == 0:
+        return np.zeros(X_test.shape[0]), 0
+
+    # Restrict to the top-N by |coefficient|, matching generate_patient_scores.py
+    ranked = nonzero_idx[np.argsort(-np.abs(coefs[nonzero_idx]))]
+    selected_idx = ranked[:top_n]
 
     if len(selected_idx) == 0:
         # Fallback: no variable survived shrinkage in this fold

@@ -15,6 +15,13 @@ os.makedirs(os.path.dirname(OUTPUT_CSV), exist_ok=True)
 # Load full raw dataset
 df_raw = pd.read_excel(INPUT_FILE)
 
+# Clean empty/ghost rows at the end of the file
+if 'Patient_ID' in df_raw.columns:
+    df_raw = df_raw.dropna(subset=['Patient_ID'])
+    df_raw = df_raw[df_raw['Patient_ID'].astype(str).str.strip() != '']
+    # Reiniciar el índice para que coincida limpiamente con las filas reales
+    df_raw = df_raw.reset_index(drop=True)
+
 # 2. Dynamic date column detection
 def is_date_column(series):
     non_nulls = series.dropna()
